@@ -1,0 +1,191 @@
+A) Identificadores
+
+inteiro  Estado
+caractere Símbolo
+Estado ← 0
+Enquanto "existe símbolo na entrada" faça
+    leia(Símbolo)
+    Escolher estado
+        Caso 0: escolher símbolo
+            Caso 'L': Estado ← 1
+        fim
+        Caso 1: escolher símbolo
+            Caso 'L': Estado ← 2
+            Caso 'D': Estado ← 2
+            Caso '-': Estado ← 4
+            Caso '.': Estado ← 3
+        fim
+        Caso 2: escolher símbolo
+            Caso 'L': Estado ← 2
+            Caso 'D': Estado ← 2
+        fim
+        Caso 3: escolher símbolo
+            Caso 'L': Estado ← 2
+            Caso 'D': Estado ← 2
+        fim
+        Caso 4: escolher símbolo
+            Caso 'L': Estado ← 5
+            Caso 'D': Estado ← 5
+        fim
+        Caso 5: escolher símbolo
+            Caso '.': Estado ← 6
+        fim
+        Caso 6: escolher símbolo
+            Caso 'L': Estado ← 2
+            Caso 'D': Estado ← 2
+        fim
+    Fim escolha
+Fim enquanto
+
+Se Estado = {1, 2, 5} então
+    escreva('Cadeia reconhecida')
+senão
+    escreva('Cadeia não reconhecida')
+Fim se
+
+----------------------------------------------------------------------------
+
+B) Palavras reservadas:
+
+inteiro  Estado
+caractere Símbolo
+Estado ← 0
+Enquanto "existe símbolo na entrada" faça
+    leia(Símbolo)
+    Escolher estado
+        Caso 0: escolher símbolo
+            Caso 'L': Estado ← 1
+        fim
+        Caso 1: escolher símbolo
+            Caso 'L': Estado ← 1
+        fim
+    Fim escolha
+Fim enquanto
+
+Se Estado = 1 então
+    escreva('Cadeia reconhecida')
+senão
+    escreva('Cadeia não reconhecida')
+Fim se
+
+-------------------------------------------------------------------------------
+
+C) Símbolos especiais:
+
+inteiro  Estado
+caractere Símbolo
+Estado ← 0
+Enquanto "existe símbolo na entrada" faça
+    leia(Símbolo)
+    Escolher estado
+        Caso 0: escolher símbolo
+            Caso 'S': Estado ← 1
+            Caso '<': Estado ← 2
+            Caso '>': Estado ← 4
+            Caso ':': Estado ← 4
+        fim
+        Caso 2: escolher símbolo
+            Caso '>': Estado ← 3
+            Caso '=': Estado ← 3
+        fim
+        Caso 4: escolher símbolo
+            Caso '=': Estado ← 3
+        fim
+    Fim escolha
+Fim enquanto
+
+Se Estado = 1 então
+    escreva('Cadeia reconhecida')
+senão
+    escreva('Cadeia não reconhecida')
+Fim se
+
+---------------------------------------------------------------
+
+d) Comentários:
+
+inteiro  Estado
+caractere Símbolo
+Estado ← 0
+Enquanto "existe símbolo na entrada" faça
+    leia(Símbolo)
+    Escolher estado
+        Caso 0: escolher símbolo
+            Caso '@': Estado ← 1
+            Caso '/': Estado ← 5
+        fim
+        Caso 1: escolher símbolo
+            Caso '@': Estado ← 2
+        fim
+        Caso 2: escolher símbolo
+            Caso 'Outro': Estado ← 3
+        fim
+        Caso 3: escolher símbolo
+            Caso 'Outro': Estado ← 3
+            Caso '\n': Estado ← 4
+        fim
+        Caso 5: escolher símbolo
+            caso '/': Estado ← 6
+            caso '*': Estado ← 9
+        fim
+        Caso 6: escolher símbolo
+            caso 'Outro': Estado ← 7
+        fim
+        Caso 7: escolher símbolo
+            caso 'Outro': Estado ← 6
+            caso '/': Estado ← 8
+        fim
+        Caso 8: escolher símbolo
+            caso '/': Estado ← 4
+        fim
+        Caso 9: escolher símbolo
+            caso 'Outro': Estado ← 10
+        fim
+        Caso 10: escolher símbolo
+            caso 'Outro': Estado ← 10
+            caso '*': Estado ← 8
+        fim
+    Fim escolha
+Fim enquanto
+
+Se Estado = 1 então
+    escreva('Cadeia reconhecida')
+senão
+    escreva('Cadeia não reconhecida')
+Fim se
+
+--------------------------------------------------------------------
+
+E) Dígitos:
+
+inteiro  Estado
+caractere Símbolo
+Estado ← 0
+Enquanto "existe símbolo na entrada" faça
+    leia(Símbolo)
+    Escolher estado
+        Caso 0: escolher símbolo
+            Caso 'D': Estado ← 1
+            Caso '-': Estado ← 4
+        fim
+        Caso 1: escolher símbolo
+            Caso 'D': Estado ← 1
+            Caso ',': Estado ← 2
+        fim
+        Caso 2: escolher símbolo
+            Caso 'D': Estado ← 3
+        fim
+        Caso 3: escolher símbolo
+            Caso 'D': Estado ← 3
+        fim
+        Caso 4: escolher símbolo
+            Caso 'D': Estado ← 1
+        fim
+    Fim escolha
+Fim enquanto
+
+Se Estado = 1 então
+    escreva('Cadeia reconhecida')
+senão
+    escreva('Cadeia não reconhecida')
+Fim se
