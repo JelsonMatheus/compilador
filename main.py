@@ -11,5 +11,6 @@ def main():
         print(token)
         token = lexico.ler_token()
 
+
 if __name__ == '__main__':
     main()

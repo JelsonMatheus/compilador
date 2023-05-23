@@ -1,13 +1,9 @@
 from util import Token, TipoToken
 from exception import TokenException
-
+import time
 
 TERMINAIS = ['\n', ' ']
 EOF = '\0'
-
-
-def terminal(char):    
-    return char in (TERMINAIS + [EOF])
 
 
 class Automato:
@@ -16,9 +12,9 @@ class Automato:
         self.entrada = entrada
         self.posicao = posicao
         self.linha = linha
-        self.token = None
 
     def processar(self):
+        self.token = None
         self.q0(lexema='')
         return self.token
     
@@ -42,7 +38,7 @@ class Automato:
         elif char == '_':
             self.q4(lexema)
         else:
-            self.token = Token(lexema[:-1], TipoToken.IDENTIFICADOR)
+            self.criar_token(lexema, TipoToken.IDENTIFICADOR)
     
     def q2(self, lexema):
         char = self.proximo_caractere()
@@ -50,9 +46,9 @@ class Automato:
         if char.isalpha() or char.isdigit():
             self.q2(lexema)
         else:
-            self.token = Token(lexema[:-1], TipoToken.IDENTIFICADOR)
-    
-    def _q3(self, lexema):
+            self.criar_token(lexema, TipoToken.IDENTIFICADOR)
+
+    def q3(self, lexema):
         char = self.proximo_caractere()
         lexema += char
         if char.isalpha() or char.isdigit():
@@ -76,8 +72,7 @@ class Automato:
         elif char == '.':
             self.q3(lexema)
         else:
-            self.token = Token(lexema[:-1], TipoToken.IDENTIFICADOR)
-
+            self.criar_token(lexema, TipoToken.IDENTIFICADOR)
 
     def proximo_caractere(self) -> str:
         char = EOF
@@ -87,4 +82,11 @@ class Automato:
             if char == '\n':
                 self.linha += 1
         return char
+    
+    def criar_token(self, lexema, tipo):
+        char = lexema[-1]
+        if not (char in TERMINAIS or char == EOF):
+            self.posicao -= 1
+        self.token = Token(lexema[:-1], tipo)
+        
 
