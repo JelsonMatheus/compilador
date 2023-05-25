@@ -1,16 +1,16 @@
-from lexico import Lexico
+from lexicon import Lexicon
 
 
 def main():
-    print('********** TOKENS: ******************')
+    print('********** TOKENS: ******************\n')
 
-    arquivo = 'tests/identificadores_invalidos.txt'
-    lexico = Lexico(arquivo)
-    token = lexico.ler_token()
+    arquivo = 'tests/digitos_e_identifi_validos.txt'
+    lexicon = Lexicon(arquivo)
+    token = lexicon.next_token()
     while token:
         print(token)
-        token = lexico.ler_token()
-
+        token = lexicon.next_token()
+    print()
 
 if __name__ == '__main__':
     main()

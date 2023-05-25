@@ -1,7 +1,7 @@
-class TokenException(Exception):
+class TokenError(Exception):
 
-    def __init__(self, linha, lexema):
-        self.message = f'Token "{lexema}" inválido, linha: {linha}'
+    def __init__(self, line, lexeme):
+        self.message = f'Token "{lexeme}" inválido, linha: {line}'
         super().__init__(self.message)
 
         
