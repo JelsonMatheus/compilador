@@ -9,6 +9,13 @@ TERMINALS = ['\n', '\t', ' ']
 
 class Lexicon:
 
+    reserved_words = [
+        'program', 'if', 'then', 'else', 'while', 'do', 
+        'until', 'repeat', 'int', 'double', 'char', 
+        'case', 'switch', 'end', 'procedure', 
+        'function', 'for', 'begin'
+    ]
+
     def __init__(self, filename):
         self.position = 0
         self.line = 1
@@ -35,6 +42,10 @@ class Lexicon:
             self.q6(lexeme)
         elif char == '-':
             self.q9(lexeme)
+        elif char == '@':
+            self.q10(lexeme)
+        elif char == '/':
+            self.q13(lexeme)
         elif char != EOF:
            raise TokenError(self.line, lexeme)
 
@@ -56,7 +67,10 @@ class Lexicon:
         if char.isalpha() or char.isdigit():
             self.q2(lexeme)
         else:
-            self.set_token(lexeme, TypeToken.IDENTIFICADOR)
+            if lexeme[:-1].lower() in self.reserved_words:
+                self.set_token(lexeme, TypeToken.PALAVRA_RESERVADA)
+            else:
+                self.set_token(lexeme, TypeToken.IDENTIFICADOR)
 
     def q3(self, lexeme):
         char = self.next_character()
@@ -117,6 +131,56 @@ class Lexicon:
             self.q6(lexeme)
         else:
             raise TokenError(self.line, lexeme)
+    
+    def q10(self, lexeme):
+        char = self.next_character()
+        lexeme += char
+        if char == '@':
+            self.q11(lexeme)
+        else:
+            raise TokenError(self.line, lexeme)
+    
+    def q11(self, lexeme):
+        char = self.next_character()
+        lexeme += char
+        if char == '\n':
+            self.q0('')
+        else:
+            self.q11(lexeme)
+    
+    def q13(self, lexeme):
+        char = self.next_character()
+        lexeme += char
+        if char == '/':
+            self.q14(lexeme)
+        elif char == '*':
+            self.q16(lexeme)
+        else:
+            raise TokenError(self.line, lexeme)
+    
+    def q14(self, lexeme):
+        char = self.next_character()
+        lexeme += char
+        if char == '/':
+            self.q15(lexeme)
+        else:
+            self.q14(lexeme)
+    
+    def q15(self, lexeme):
+        char = self.next_character()
+        lexeme += char
+        if char == '/':
+            self.q0('')
+        else:
+            raise TokenError(self.line, lexeme)
+    
+    def q16(self, lexeme):
+        char = self.next_character()
+        lexeme += char
+        if char == '*':
+            self.q15(lexeme)
+        else:
+            self.q16(lexeme)
 
     def next_character(self) -> str:
         char = EOF
@@ -128,9 +192,6 @@ class Lexicon:
         return char
     
     def set_token(self, lexeme, tipo):
-        char = lexeme[-1]
-        if not (char in TERMINALS or char == EOF):
-            self.position -= 1
         self._token = Token(lexeme[:-1], tipo)
         
 

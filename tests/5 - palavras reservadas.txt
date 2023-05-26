@@ -1,0 +1,19 @@
+10000 @@ comentario de uma linha
+i jx 6 -4,6 8,987777
+
+//
+    Um comentario de varias linhas
+
+//
+
+z_teste k12aa3 u_teste123 
+
+/*
+    outro comentario de varias linhas
+*/
+
+u_12tes3 9
+
+program  procedure function
+for 
+begin

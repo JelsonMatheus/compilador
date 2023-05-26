@@ -4,6 +4,8 @@ from enum import Enum
 class TypeToken(Enum):
     IDENTIFICADOR = 'Identificador'
     DIGITO = 'Digito'
+    PALAVRA_RESERVADA = 'Palavra Reservada'
+    SIMBOLO = 'Símbolo'
 
 
 class Token:

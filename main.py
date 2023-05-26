@@ -4,7 +4,7 @@ from lexicon import Lexicon
 def main():
     print('********** TOKENS: ******************\n')
 
-    arquivo = 'tests/digitos_e_identifi_validos.txt'
+    arquivo = 'tests/5 - palavras reservadas.txt'
     lexicon = Lexicon(arquivo)
     token = lexicon.next_token()
     while token:
