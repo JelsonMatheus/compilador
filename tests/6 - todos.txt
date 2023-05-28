@@ -1,0 +1,17 @@
+program meuprograma
+//
+        comentario de varia linhas
+//
+    begin
+        double x_y := 1,444; @@ Um comentario
+        int zzz = -2;
+
+        /*
+            outro comentario
+        */
+        double x = zzz / x_y;
+        if (x_y) <> x {
+            double teste := -999999
+        }
+    end
+    

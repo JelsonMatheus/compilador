@@ -1,7 +1,7 @@
 from enum import Enum
 
 
-class TypeToken(Enum):
+class TokenType(Enum):
     IDENTIFICADOR = 'Identificador'
     DIGITO = 'Digito'
     PALAVRA_RESERVADA = 'Palavra Reservada'
@@ -10,9 +10,9 @@ class TypeToken(Enum):
 
 class Token:
 
-    def __init__(self, lexeme:str, typetoken:TypeToken):
+    def __init__(self, lexeme:str, TokenType:TokenType):
         self.lexeme = lexeme
-        self.typetoken = typetoken
+        self.TokenType = TokenType
     
     def __str__(self):
-        return f'({self.lexeme}, {self.typetoken.name})'
+        return f'({self.lexeme}, {self.TokenType.name})'

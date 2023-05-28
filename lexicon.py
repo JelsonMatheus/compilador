@@ -1,6 +1,5 @@
 from exception import TokenError
-from util import TypeToken, Token
-
+from util import TokenType, Token
 
 
 EOF = '\0'
@@ -31,9 +30,10 @@ class Lexicon:
             print(error)
     
     def q0(self, lexeme):
-        char = self.next_character()
+        char = self.read_char()
         while char in TERMINALS:
-            char = self.next_character()
+            self.move_position()
+            char = self.read_char()
 
         lexeme += char
         if char.isalpha():
@@ -46,154 +46,226 @@ class Lexicon:
             self.q10(lexeme)
         elif char == '/':
             self.q13(lexeme)
+        elif char in ';,.*()\{\}=':
+            self.q17(lexeme)
+        elif char == '<':
+            self.q18(lexeme)
+        elif char in '>:':
+            self.q19(lexeme)
+        elif char == '+':
+            self.q20(lexeme)
+        elif char == '-':
+            self.q21(lexeme)
         elif char != EOF:
            raise TokenError(self.line, lexeme)
 
     def q1(self, lexeme):
-        char = self.next_character()
-        lexeme += char
+        self.move_position()
+        char = self.read_char()
+
         if char.isalpha() or char.isdigit():
-            self.q2(lexeme)
+            self.q2(lexeme+char)
         elif char == '.':
-            self.q3(lexeme)
+            self.q3(lexeme+char)
         elif char == '_':
-            self.q4(lexeme)
+            self.q4(lexeme+char)
         else:
-            self.set_token(lexeme, TypeToken.IDENTIFICADOR)
+            self.set_token(lexeme, TokenType.IDENTIFICADOR, char)
     
     def q2(self, lexeme):
-        char = self.next_character()
-        lexeme += char
+        self.move_position()
+        char = self.read_char()
+
         if char.isalpha() or char.isdigit():
-            self.q2(lexeme)
+            self.q2(lexeme+char)
         else:
-            if lexeme[:-1].lower() in self.reserved_words:
-                self.set_token(lexeme, TypeToken.PALAVRA_RESERVADA)
+            if lexeme in self.reserved_words:
+                self.set_token(lexeme, TokenType.PALAVRA_RESERVADA, char)
             else:
-                self.set_token(lexeme, TypeToken.IDENTIFICADOR)
+                self.set_token(lexeme, TokenType.IDENTIFICADOR, char)
 
     def q3(self, lexeme):
-        char = self.next_character()
-        lexeme += char
+        self.move_position()
+        char = self.read_char()
+
         if char.isalpha() or char.isdigit():
-            self.q2(lexeme)
+            self.q2(lexeme+char)
         else:
-           raise TokenError(self.line, lexeme)
+           raise TokenError(self.line, lexeme+char)
     
     def q4(self, lexeme):
-        char = self.next_character()
-        lexeme += char
+        self.move_position()
+        char = self.read_char()
+
         if char.isalpha() or char.isdigit():
-            self.q5(lexeme)
+            self.q5(lexeme+char)
         else:
-            raise TokenError(self.line, lexeme)
+            raise TokenError(self.line, lexeme+char)
     
     def q5(self, lexeme):
-        char = self.next_character()
-        lexeme += char
+        self.move_position()
+        char = self.read_char()
+
         if char.isalpha() or char.isdigit():
-            self.q5(lexeme)
+            self.q5(lexeme+char)
         elif char == '.':
-            self.q3(lexeme)
+            self.q3(lexeme+char)
         else:
-            self.set_token(lexeme, TypeToken.IDENTIFICADOR)
+            self.set_token(lexeme, TokenType.IDENTIFICADOR, char)
     
     def q6(self, lexeme):
-        char = self.next_character()
-        lexeme += char
+        self.move_position()
+        char = self.read_char()
+
         if char.isdigit():
-            self.q6(lexeme)
+            self.q6(lexeme+char)
         elif char == ',':
-            self.q7(lexeme)
+            self.q7(lexeme+char)
         else:
-            self.set_token(lexeme, TypeToken.DIGITO)
+            self.set_token(lexeme, TokenType.DIGITO, char)
     
     def q7(self, lexeme):
-        char = self.next_character()
-        lexeme += char
+        self.move_position()
+        char = self.read_char()
+
         if char.isdigit():
-            self.q8(lexeme)
+            self.q8(lexeme+char)
         else:
-            raise TokenError(self.line, lexeme)
+            raise TokenError(self.line, lexeme+char)
     
     def q8(self, lexeme):
-        char = self.next_character()
-        lexeme += char
+        self.move_position()
+        char = self.read_char()
+        
         if char.isdigit():
-            self.q8(lexeme)
+            self.q8(lexeme+char)
         else:
-            self.set_token(lexeme, TypeToken.DIGITO)
+            self.set_token(lexeme, TokenType.DIGITO, char)
     
     def q9(self, lexeme):
-        char = self.next_character()
-        lexeme += char
+        self.move_position()
+        char = self.read_char()
+
         if char.isdigit():
-            self.q6(lexeme)
+            self.q6(lexeme+char)
         else:
-            raise TokenError(self.line, lexeme)
+            raise TokenError(self.line, lexeme+char)
     
     def q10(self, lexeme):
-        char = self.next_character()
-        lexeme += char
+        self.move_position()
+        char = self.read_char()
+
         if char == '@':
-            self.q11(lexeme)
+            self.q11(lexeme+char)
         else:
-            raise TokenError(self.line, lexeme)
+            self.set_token(lexeme, TokenType.SIMBOLO, char)
     
     def q11(self, lexeme):
-        char = self.next_character()
-        lexeme += char
+        self.move_position()
+        char = self.read_char()
+
         if char == '\n':
-            self.q0('')
+            self.q12(lexeme)
         else:
-            self.q11(lexeme)
+            self.q11(lexeme+char)
     
+    def q12(self, lexeme):
+        self.move_position()
+        self.q0('')
+
     def q13(self, lexeme):
-        char = self.next_character()
-        lexeme += char
+        self.move_position()
+        char = self.read_char()
+
         if char == '/':
-            self.q14(lexeme)
+            self.q14(lexeme+char)
         elif char == '*':
-            self.q16(lexeme)
+            self.q16(lexeme+char)
         else:
-            raise TokenError(self.line, lexeme)
+            self.set_token(lexeme, TokenType.SIMBOLO, char)
     
     def q14(self, lexeme):
-        char = self.next_character()
-        lexeme += char
+        self.move_position()
+        char = self.read_char()
+
         if char == '/':
-            self.q15(lexeme)
+            self.q15(lexeme+char)
         else:
-            self.q14(lexeme)
+            self.q14(lexeme+char)
     
     def q15(self, lexeme):
-        char = self.next_character()
-        lexeme += char
+        self.move_position()
+        char = self.read_char()
+
         if char == '/':
-            self.q0('')
+            self.q12(lexeme+char)
         else:
-            raise TokenError(self.line, lexeme)
+            raise TokenError(self.line, lexeme+char)
     
     def q16(self, lexeme):
-        char = self.next_character()
-        lexeme += char
-        if char == '*':
-            self.q15(lexeme)
-        else:
-            self.q16(lexeme)
+        self.move_position()
+        char = self.read_char()
 
-    def next_character(self) -> str:
+        if char == '*':
+            self.q15(lexeme+char)
+        else:
+            self.q16(lexeme+char)
+    
+    def q17(self, lexeme):
+        self.set_token(lexeme, TokenType.SIMBOLO, char='')
+        self.move_position()
+    
+    def q18(self, lexeme):
+        self.move_position()
+        char = self.read_char()
+
+        if char in '>=':
+            self.q17(lexeme+char)
+        else:
+            self.set_token(lexeme, TokenType.SIMBOLO, char)
+    
+    def q19(self, lexeme):
+        self.move_position()
+        char = self.read_char()
+
+        if char == '=':
+            self.q17(lexeme+char)
+        else:
+            self.set_token(lexeme, TokenType.SIMBOLO, char)
+    
+    def q20(self, lexeme):
+        self.move_position()
+        char = self.read_char()
+
+        if char == '+':
+            self.q17(lexeme+char)
+        else:
+            self.set_token(lexeme, TokenType.SIMBOLO, char)
+    
+    def q21(self, lexeme):
+        self.move_position()
+        char = self.read_char()
+
+        if char == '-':
+            self.q17(lexeme+char)
+        else:
+            self.set_token(lexeme, TokenType.SIMBOLO, char)
+
+    def move_position(self):
+        self.position += 1
+
+    def read_char(self) -> str:
         char = EOF
         if self.position < len(self.source):
             char = self.source[self.position]
-            self.position += 1
             if char == '\n':
                 self.line += 1
         return char
     
-    def set_token(self, lexeme, tipo):
-        self._token = Token(lexeme[:-1], tipo)
-        
+    def set_token(self, lexeme, tipo, char):
+        if char in TERMINALS:
+            self.move_position()
+        self._token = Token(lexeme, tipo)
 
 
     
