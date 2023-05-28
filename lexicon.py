@@ -70,7 +70,7 @@ class Lexicon:
         elif char == '_':
             self.q4(lexeme+char)
         else:
-            self.set_token(lexeme, TokenType.IDENTIFICADOR, char)
+            self.set_token(char, lexeme, TokenType.IDENTIFICADOR)
     
     def q2(self, lexeme):
         self.move_position()
@@ -80,9 +80,9 @@ class Lexicon:
             self.q2(lexeme+char)
         else:
             if lexeme in self.reserved_words:
-                self.set_token(lexeme, TokenType.PALAVRA_RESERVADA, char)
+                self.set_token(char, lexeme, TokenType.PALAVRA_RESERVADA)
             else:
-                self.set_token(lexeme, TokenType.IDENTIFICADOR, char)
+                self.set_token(char, lexeme, TokenType.IDENTIFICADOR)
 
     def q3(self, lexeme):
         self.move_position()
@@ -111,7 +111,7 @@ class Lexicon:
         elif char == '.':
             self.q3(lexeme+char)
         else:
-            self.set_token(lexeme, TokenType.IDENTIFICADOR, char)
+            self.set_token(char, lexeme, TokenType.IDENTIFICADOR)
     
     def q6(self, lexeme):
         self.move_position()
@@ -122,7 +122,7 @@ class Lexicon:
         elif char == ',':
             self.q7(lexeme+char)
         else:
-            self.set_token(lexeme, TokenType.DIGITO, char)
+            self.set_token(char, lexeme, TokenType.DIGITO)
     
     def q7(self, lexeme):
         self.move_position()
@@ -140,7 +140,7 @@ class Lexicon:
         if char.isdigit():
             self.q8(lexeme+char)
         else:
-            self.set_token(lexeme, TokenType.DIGITO, char)
+            self.set_token(char, lexeme, TokenType.DIGITO)
     
     def q9(self, lexeme):
         self.move_position()
@@ -158,7 +158,7 @@ class Lexicon:
         if char == '@':
             self.q11(lexeme+char)
         else:
-            self.set_token(lexeme, TokenType.SIMBOLO, char)
+            self.set_token(char, lexeme, TokenType.SIMBOLO)
     
     def q11(self, lexeme):
         self.move_position()
@@ -182,7 +182,7 @@ class Lexicon:
         elif char == '*':
             self.q16(lexeme+char)
         else:
-            self.set_token(lexeme, TokenType.SIMBOLO, char)
+            self.set_token(char, lexeme, TokenType.SIMBOLO)
     
     def q14(self, lexeme):
         self.move_position()
@@ -212,7 +212,7 @@ class Lexicon:
             self.q16(lexeme+char)
     
     def q17(self, lexeme):
-        self.set_token(lexeme, TokenType.SIMBOLO, char='')
+        self.set_token('', lexeme, TokenType.SIMBOLO)
         self.move_position()
     
     def q18(self, lexeme):
@@ -222,7 +222,7 @@ class Lexicon:
         if char in '>=':
             self.q17(lexeme+char)
         else:
-            self.set_token(lexeme, TokenType.SIMBOLO, char)
+            self.set_token(char, lexeme, TokenType.SIMBOLO)
     
     def q19(self, lexeme):
         self.move_position()
@@ -231,7 +231,7 @@ class Lexicon:
         if char == '=':
             self.q17(lexeme+char)
         else:
-            self.set_token(lexeme, TokenType.SIMBOLO, char)
+            self.set_token(char, lexeme, TokenType.SIMBOLO)
     
     def q20(self, lexeme):
         self.move_position()
@@ -240,7 +240,7 @@ class Lexicon:
         if char == '+':
             self.q17(lexeme+char)
         else:
-            self.set_token(lexeme, TokenType.SIMBOLO, char)
+            self.set_token(char, lexeme, TokenType.SIMBOLO)
     
     def q21(self, lexeme):
         self.move_position()
@@ -249,7 +249,7 @@ class Lexicon:
         if char == '-':
             self.q17(lexeme+char)
         else:
-            self.set_token(lexeme, TokenType.SIMBOLO, char)
+            self.set_token(char, lexeme, TokenType.SIMBOLO)
 
     def move_position(self):
         self.position += 1
@@ -262,10 +262,10 @@ class Lexicon:
                 self.line += 1
         return char
     
-    def set_token(self, lexeme, tipo, char):
+    def set_token(self, char, lexeme, type_):
         if char in TERMINALS:
             self.move_position()
-        self._token = Token(lexeme, tipo)
+        self._token = Token(lexeme, type_)
 
 
     
