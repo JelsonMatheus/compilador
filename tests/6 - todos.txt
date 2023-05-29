@@ -1,7 +1,7 @@
 program meuprograma
-//
+    //
         comentario de varia linhas
-//
+    //
     begin
         double x_y := 1,444; @@ Um comentario
         int zzz = -2;

@@ -2,7 +2,7 @@ from lexicon import Lexicon
 
 
 def main():
-    print('********** TOKENS: ******************\n')
+    print('**************** TOKENS: ******************\n')
 
     
     arquivo = 'tests/6 - todos.txt'
