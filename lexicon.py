@@ -18,8 +18,7 @@ class Lexicon:
     def __init__(self, filename):
         self.position = 0
         self.line = 1
-        with open(filename) as file_:
-            self.source = file_.read()
+        self.source = open(filename)
 
     def next_token(self):
         try:
@@ -27,6 +26,7 @@ class Lexicon:
             self.q0('') 
             return self._token
         except TokenError as error:
+            self.source.close()
             print(error)
     
     def q0(self, lexeme):
@@ -34,7 +34,7 @@ class Lexicon:
         while char in TERMINALS:
             self.move_position()
             char = self.read_char()
-
+        
         lexeme += char
         if char.isalpha():
             self.q1(lexeme)
@@ -154,7 +154,7 @@ class Lexicon:
     def q10(self, lexeme):
         self.move_position()
         char = self.read_char()
-
+        
         if char == '@':
             self.q11(lexeme+char)
         else:
@@ -255,11 +255,18 @@ class Lexicon:
         self.position += 1
 
     def read_char(self) -> str:
-        char = EOF
-        if self.position < len(self.source):
-            char = self.source[self.position]
-            if char == '\n':
-                self.line += 1
+        if self.source.closed:
+            return EOF
+
+        self.source.seek(self.position)
+        char = self.source.read(1)
+
+        if not char:
+            self.source.close()
+            return EOF
+        elif char == '\n':
+            self.line += 1
+            
         return char
     
     def set_token(self, char, lexeme, type_):
