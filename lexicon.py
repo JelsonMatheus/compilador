@@ -152,7 +152,7 @@ class Lexicon:
         elif char == '-':
             self.q17(lexeme+char)
         else:
-            raise TokenError(self.line, lexeme+char)
+            self.set_token(char, lexeme, TokenType.SIMBOLO)
     
     def q10(self, lexeme):
         self.move_position()
