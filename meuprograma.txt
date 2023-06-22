@@ -5,8 +5,7 @@ program meuprograma
     begin
         double xy := 1,444; @@ Um comentario
         zzz++
-        a.ccc--;
-
+        aaa.ccc--;
     
         if (x_y) == x {
             double teste := -999999

@@ -77,6 +77,8 @@ class Lexicon:
 
         if char.isalpha() or char.isdigit():
             self.q2(lexeme+char)
+        elif char == '.':
+            self.q21(lexeme+char)
         else:
             if lexeme in self.reserved_words:
                 self.set_token(char, lexeme, TokenType.PALAVRA_RESERVADA)
@@ -88,7 +90,7 @@ class Lexicon:
         char = self.read_char()
 
         if char.isalpha() or char.isdigit():
-            self.q2(lexeme+char)
+            self.q22(lexeme+char)
         else:
            raise TokenError(self.line, lexeme+char)
     
@@ -242,6 +244,27 @@ class Lexicon:
             self.q17(lexeme+char)
         else:
             self.set_token(char, lexeme, TokenType.SIMBOLO)
+
+    def q21(self, lexeme):
+        self.move_position()
+        char = self.read_char()
+
+        if char.isalpha() or char.isdigit():
+            self.q22(lexeme+char)
+        else:
+            raise TokenError(self.line, lexeme+char)
+    
+    def q22(self, lexeme):
+        self.move_position()
+        char = self.read_char()
+
+        if char.isalpha() or char.isdigit():
+            self.q22(lexeme+char)
+        else:
+            if lexeme in self.reserved_words:
+                self.set_token(char, lexeme, TokenType.PALAVRA_RESERVADA)
+            else:
+                self.set_token(char, lexeme, TokenType.IDENTIFICADOR)
 
     def move_position(self):
         self.position += 1
