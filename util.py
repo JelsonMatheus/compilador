@@ -9,6 +9,9 @@ class TokenType(Enum):
 
 
 class Token:
+    """
+    Classe para representar um token.
+    """
 
     def __init__(self, lexeme:str, TokenType:TokenType):
         self.lexeme = lexeme

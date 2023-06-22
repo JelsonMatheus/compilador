@@ -27,6 +27,7 @@ class Lexicon:
             return self._token
         except TokenError as error:
             self.source.close()
+            print()
             print(error)
     
     def q0(self, lexeme):
@@ -54,8 +55,6 @@ class Lexicon:
             self.q19(lexeme)
         elif char == '+':
             self.q20(lexeme)
-        elif char == '-':
-            self.q21(lexeme)
         elif char != EOF:
            raise TokenError(self.line, lexeme)
 
@@ -148,6 +147,8 @@ class Lexicon:
 
         if char.isdigit():
             self.q6(lexeme+char)
+        elif char == '-':
+            self.q17(lexeme+char)
         else:
             raise TokenError(self.line, lexeme+char)
     
@@ -238,15 +239,6 @@ class Lexicon:
         char = self.read_char()
 
         if char == '+':
-            self.q17(lexeme+char)
-        else:
-            self.set_token(char, lexeme, TokenType.SIMBOLO)
-    
-    def q21(self, lexeme):
-        self.move_position()
-        char = self.read_char()
-
-        if char == '-':
             self.q17(lexeme+char)
         else:
             self.set_token(char, lexeme, TokenType.SIMBOLO)

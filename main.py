@@ -5,7 +5,7 @@ def main():
     print('**************** TOKENS: ******************\n')
 
     
-    arquivo = 'tests/6 - todos.txt'
+    arquivo = 'meuprograma.txt'
     lexicon = Lexicon(arquivo)
 
     print(f'{"TOKEN":<20} {"TIPO":<20}')

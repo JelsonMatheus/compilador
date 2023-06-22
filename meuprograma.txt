@@ -1,0 +1,14 @@
+program meuprograma
+    /*
+        Comentario de varia linhas
+    */
+    begin
+        double xy := 1,444; @@ Um comentario
+        zzz++
+        a.ccc--;
+
+    
+        if (x_y) == x {
+            double teste := -999999
+        }
+    end
