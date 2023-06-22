@@ -193,6 +193,8 @@ class Lexicon:
 
         if char == '/':
             self.q15(lexeme+char)
+        elif char == EOF:
+            raise TokenError(self.line, "Esperava a finalização de comentário (*/)")
         else:
             self.q14(lexeme+char)
     
@@ -211,6 +213,8 @@ class Lexicon:
 
         if char == '*':
             self.q15(lexeme+char)
+        elif char == EOF:
+            raise TokenError(self.line, "Esperava a finalização de comentário (*/)")
         else:
             self.q16(lexeme+char)
     

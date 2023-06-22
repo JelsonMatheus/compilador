@@ -1,13 +1,10 @@
-program meuprograma
-    /*
-        Comentario de varia linhas
-    */
-    begin
-        double xy := 1,444; @@ Um comentario
-        zzz++
-        aaa.ccc--;
-    
-        if (x_y) == x {
-            double teste := -999999
-        }
-    end
+
+
+  aaa    1 ax ;1 ---5
+teste := -999999
+program
+/*
+    Comentario de varia linhas
+*/
+double xy := 1,444 @@ Um comentario
+++
