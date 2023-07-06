@@ -10,9 +10,9 @@ class Lexicon:
 
     reserved_words = [
         'program', 'if', 'then', 'else', 'while', 'do', 
-        'until', 'repeat', 'int', 'double', 'char', 
-        'case', 'switch', 'end', 'procedure', 
-        'function', 'for', 'begin'
+        'until', 'repeat', 'integer', 'double', 'char', 
+        'case', 'switch', 'end', 'procedure', 'or',
+        'function', 'for', 'begin', 'var', 'type', 'div', 'and'
     ]
 
     def __init__(self, filename):
@@ -291,7 +291,8 @@ class Lexicon:
     def set_token(self, char, lexeme, type_):
         if char in TERMINALS:
             self.move_position()
-        self._token = Token(lexeme, type_)
+        line = (self.line - 1) if char in ['\n', '\t'] else self.line
+        self._token = Token(lexeme, type_, line)
 
 
     

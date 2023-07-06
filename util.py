@@ -13,9 +13,10 @@ class Token:
     Classe para representar um token.
     """
 
-    def __init__(self, lexeme:str, TokenType:TokenType):
+    def __init__(self, lexeme:str, TokenType:TokenType, line:int):
         self.lexeme = lexeme
         self.TokenType = TokenType
+        self.line = line
     
     def __str__(self):
         return f'({self.lexeme}, {self.TokenType.name})'

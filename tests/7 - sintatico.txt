@@ -1,0 +1,21 @@
+program meuprograma;
+    type teste = integer; teste2 = char;
+    var minhavar, minhavar2: integer; minhavar3:char;
+    
+    procedure p1(v,v2:id1);
+        type teste = char;
+        begin
+            v1 := + p1 * p2 = p3;
+        end
+    function p1(v,v2:id1):id1
+        type teste = char;
+        begin
+            v2 := -5;
+        end
+    begin
+        if v then 
+            while v2 > 5 do
+                v1 := - 1
+        else v;
+        v2 := 1;
+    end
