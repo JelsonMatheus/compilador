@@ -34,5 +34,8 @@ ERROR_MESSAGES = {
    14: 'Error de sintaxe: Esperava-se a palavra reservada "{}" e não o token "{}".',
 
    15: 'Erro de sintaxe: comando sem rótulo não reconhecido. Esperado uma atribuição, '
-       'chamada de procedimento, comando condicional ou comando repetitivo.'
+       'chamada de procedimento, comando condicional ou comando repetitivo.',
+
+   16: 'Erro de sintaxe: esperava-se uma definição de tipos, variaveis '
+       'sub-rotinas e um camando composto.'
 }

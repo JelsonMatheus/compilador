@@ -17,6 +17,7 @@ class Syntactic:
         self.check_identifier()
         self.check_terminal(';')
         self.block()
+        print('Compilador com sucesso!')
     
     def block(self):
         token = self.lexicon.next_token()
@@ -29,7 +30,7 @@ class Syntactic:
         if token and token.lexeme == 'begin':
             self.composite_command()
         else:
-            self.syntactic_error(token, ERROR_MESSAGES[8])
+            self.syntactic_error(token, ERROR_MESSAGES[16])
         
     def definition_types(self):
         self.check_identifier()
@@ -87,11 +88,12 @@ class Syntactic:
         token = self.lexicon.next_token()
         if self.is_terminal(token, '('):
             self.formal_parameters()
+            self.check_terminal(':')
         elif not self.is_terminal(token, ':'):
             msg = ERROR_MESSAGES[0].format(':')
             self.syntactic_error(token, msg)
-        self.check_terminal(':')
         self.check_identifier()
+        self.check_terminal(';')
         self.block()
     
     def composite_command(self):

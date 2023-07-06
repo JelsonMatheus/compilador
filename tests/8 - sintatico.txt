@@ -1,0 +1,29 @@
+program exemplo;
+type
+  meuTipo = integer;
+  
+var
+  x, y: meuTipo;
+  z: boolean;
+  
+procedure meuProcedimento(a: meuTipo);
+    begin
+        if a > 0 then p
+        else v;
+    end
+function func(v1, v2:b): f1;
+    type
+    meuTipo = integer;
+    begin v; end
+function func : f1;
+    type
+    meuTipo = integer;
+    begin v; end
+begin
+  x := 5;
+  y := minhaFuncao(x);
+  z := true;
+  
+  if z then
+    meuProcedimento(y);
+end
